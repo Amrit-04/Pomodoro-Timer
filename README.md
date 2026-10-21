@@ -25,9 +25,10 @@ Create a native Windows installer with `npm run build`.
 
 ## Install on Windows
 
-1. Download and run **`Focus Grove_1.0.0_x64-setup.exe`** from the project release.
-2. Follow the installer prompts.
-3. Press the Windows key, search for **Focus Grove**, and open it from the Start menu.
+1. Run `npm run build` from the project folder.
+2. Open **`src-tauri/target/release/bundle/nsis/Focus Grove_1.0.0_x64-setup.exe`**.
+3. Follow the installer prompts.
+4. Press the Windows key, search for **Focus Grove**, and open it from the Start menu.
 
 The installer adds the Start-menu shortcut and an uninstall entry automatically. You can then use the pin button in the upper-right corner to keep the timer above other windows.
 
