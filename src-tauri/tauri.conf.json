@@ -5,6 +5,7 @@
   "identifier": "com.amrit.focusgrove",
   "build": { "frontendDist": "../src" },
   "app": {
+    "withGlobalTauri": true,
     "windows": [{
       "title": "Focus Grove",
       "width": 410,

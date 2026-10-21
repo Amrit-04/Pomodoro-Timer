@@ -1,5 +1,3 @@
-import { getCurrentWindow } from "@tauri-apps/api/window";
-
 const defaults = { appearance: "auto", theme: "grove", durations: { focus: 25, short: 5, long: 15 }, completed: 0 };
 const saved = JSON.parse(localStorage.getItem("focus-grove-settings") || "{}");
 const state = { ...defaults, ...saved, durations: { ...defaults.durations, ...(saved.durations || {}) }, mode: "focus", running: false, remaining: 0, total: 0, timer: null, pinned: false };
@@ -21,5 +19,16 @@ els.start.addEventListener("click", toggleTimer); els.reset.addEventListener("cl
 $("settingsButton").addEventListener("click", () => { $("appearance").value=state.appearance; $("theme").value=state.theme; $("focusDuration").value=state.durations.focus; $("shortDuration").value=state.durations.short; $("longDuration").value=state.durations.long; els.settings.showModal(); });
 $("saveSettings").addEventListener("click", (e) => { e.preventDefault(); state.appearance=$("appearance").value; state.theme=$("theme").value; ["focus","short","long"].forEach(k => state.durations[k]=Math.max(1, Number($(`${k}Duration`).value) || defaults.durations[k])); appearance(); persist(); els.settings.close(); selectMode(state.mode); });
 $("closeCompletion").addEventListener("click", () => { els.completion.close(); selectMode(state.mode === "focus" ? "short" : "focus"); });
-$("pinButton").addEventListener("click", async () => { state.pinned=!state.pinned; try { await getCurrentWindow().setAlwaysOnTop(state.pinned); $("pinButton").classList.toggle("pinned",state.pinned); } catch { state.pinned=false; } });
+$("pinButton").addEventListener("click", async () => {
+  state.pinned = !state.pinned;
+  try {
+    const appWindow = window.__TAURI__?.window?.getCurrentWindow?.();
+    if (!appWindow) throw new Error("Native window API is unavailable");
+    await appWindow.setAlwaysOnTop(state.pinned);
+    $("pinButton").classList.toggle("pinned", state.pinned);
+  } catch {
+    state.pinned = false;
+    $("pinButton").classList.remove("pinned");
+  }
+});
 appearance(); selectMode("focus"); setInterval(appearance, 60000);
