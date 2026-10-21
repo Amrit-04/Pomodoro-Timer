@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Focus Grove</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header>
+        <div class="brand"><span class="brand-mark">✦</span><span>focus grove</span></div>
+        <div class="header-actions">
+          <button class="icon-button" id="pinButton" title="Keep window on top" aria-label="Keep window on top">⌁</button>
+          <button class="icon-button" id="settingsButton" title="Settings" aria-label="Settings">⚙</button>
+        </div>
+      </header>
+
+      <section class="mode-tabs" aria-label="Timer mode">
+        <button data-mode="focus" class="active">Focus</button>
+        <button data-mode="short">Short break</button>
+        <button data-mode="long">Long break</button>
+      </section>
+
+      <section class="timer-card">
+        <p id="encouragement">Plant a little time for yourself.</p>
+        <div class="time" id="time" aria-live="polite">25:00</div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+        <button class="primary-button" id="startButton">Start focus</button>
+        <button class="text-button" id="resetButton">Reset</button>
+      </section>
+
+      <section class="scene grove-scene" id="scene" aria-label="Your growing focus tree">
+        <div class="moon"></div>
+        <div class="stars">✦ · ✧ · ✦</div>
+        <div class="ground"></div>
+        <div class="tree" id="tree">
+          <div class="canopy canopy-one"></div><div class="canopy canopy-two"></div><div class="canopy canopy-three"></div><div class="trunk"></div>
+        </div>
+        <div class="scene-copy"><strong id="sceneTitle">A seedling waits</strong><span id="sceneText">Stay with it. Every minute helps it grow.</span></div>
+      </section>
+
+      <footer><span><b id="completedCount">0</b> focus sessions today</span><span class="dot">•</span><span id="statusText">ready when you are</span></footer>
+    </main>
+
+    <dialog id="settingsDialog">
+      <form method="dialog" class="settings-panel">
+        <div class="dialog-heading"><h2>Make it yours</h2><button class="icon-button" value="cancel" aria-label="Close">×</button></div>
+        <label>Appearance<select id="appearance"><option value="auto">Automatic by local time</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+        <label>Theme<select id="theme"><option value="grove">Grove</option><option value="halloween">Halloween</option><option value="minimal">Minimal</option></select></label>
+        <div class="duration-grid">
+          <label>Focus <input id="focusDuration" type="number" min="1" max="180" /></label>
+          <label>Short break <input id="shortDuration" type="number" min="1" max="60" /></label>
+          <label>Long break <input id="longDuration" type="number" min="1" max="90" /></label>
+        </div>
+        <button class="primary-button" id="saveSettings" value="default">Save changes</button>
+      </form>
+    </dialog>
+    <dialog id="completionDialog" class="completion-dialog">
+      <div class="completion-panel"><div id="completionIcon">🌳</div><h2 id="completionTitle">You grew it.</h2><p id="completionMessage">A focused session, fully yours.</p><button class="primary-button" id="closeCompletion">Lovely</button></div>
+    </dialog>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
